@@ -2,9 +2,9 @@ export {Node};
 
 class Node {
 
-    constructor(data, right, left){
+    constructor(data){
         this.data = data;
-        this.right = right;
-        this.left = left;
+        this.right = null;
+        this.left = null;
     }
 }
