@@ -23,7 +23,7 @@ const randomArrayGenerator = (size) => {
 
 
 // Creation of Binary Search Tree (Visualization using prettyPrint Function)
-const randomArray = randomArrayGenerator(6);
+const randomArray = randomArrayGenerator(3);
 const testTree = new Tree(randomArray);
 console.log(testTree);
 console.log(prettyPrint(testTree.root));

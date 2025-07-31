@@ -103,21 +103,21 @@ class Tree {
     }
 
     // BFS
-    levelOrderForEach(callback, currentNode = this.root){
-
+    levelOrderForEach(callback, currentNode = this.root) {
         if (!callback){
-            throw new Error("No Callback Input!");
+            throw new Error("No Callback Input!")    
         }
 
-        if (!currentNode){
-            return;
-        }
+        
 
         const queue = [currentNode];
 
         while (queue.length > 0){
 
             const current = queue.shift();
+
+            callback(current);
+            console.log(current);
 
             if (current.left){
                 queue.push(current.left);
@@ -126,11 +126,8 @@ class Tree {
             if (current.right){
                 queue.push(current.right);
             }
-
-            callback(current);
         }
-
-    }
+  }
 
     // DFS (left -> root -> right)
     inOrderForEach(callback, currentNode = this.root){
