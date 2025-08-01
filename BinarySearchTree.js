@@ -108,24 +108,21 @@ class Tree {
             throw new Error("No Callback Input!")    
         }
 
-        
-
         const queue = [currentNode];
 
         while (queue.length > 0){
 
             const current = queue.shift();
-
             callback(current);
-            console.log(current);
+
+            if (current.right){
+                queue.push(current.right)
+            }
 
             if (current.left){
                 queue.push(current.left);
             }
-
-            if (current.right){
-                queue.push(current.right);
-            }
+            
         }
   }
 
@@ -190,21 +187,14 @@ class Tree {
     }
 
     height(value, currentNode = this.find(value)){
-        
-        if (this.find(value)){
-            return null;
+
+        if (!currentNode){
+            return null
         }
 
-        if (currentNode === null){
-            return -1
-        }
-        
-        const leftHeight = this.height(value, currentNode.left);
-        const rightHeight = this.height(value, currentNode.right);
+        const maxHeight = Math.max(this.height(value, currentNode.left), this.height(value, currentNode.right));
 
-        const height = Math.max(leftHeight, rightHeight) + 1;
-
-        return height;
+        return maxHeight;
     }
 
     depth(value, currentNode = this.root, currentDepth = 0){
@@ -225,20 +215,21 @@ class Tree {
 
     isBalanced(currentNode = this.root){
 
-        if (currentNode === null){
+        if (!currentNode){
             return true;
         }
 
-        const leftNode = this.isBalanced(currentNode.left);
-        const rightNode = this.isBalanced(currentNode.right);
+        const leftNodeHeight = this.height(currentNode.left);
+        const rightNodeHeight = this.height(currentNode.right);
 
-        const heightDifference = Math.abs(this.height(leftNode) - this.height(rightNode));
+        const heightDifference = Math.abs(leftNodeHeight - rightNodeHeight);
 
         if (heightDifference > 1) {
             return false;
         }
-        
-        return true;
+
+        return this.isBalanced(currentNode.left) && this.isBalanced(currentNode.right);
+    
     }
 
     rebalance(){
