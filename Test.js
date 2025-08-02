@@ -22,7 +22,7 @@ const randomArrayGenerator = (size) => {
 
 
 
-/*----------------------------------------------------------------------------------------------------------------------- */
+/*----------------------------------------------------------------------------------------------------------------------------*/
 
 
 
@@ -34,8 +34,10 @@ console.log(prettyPrint(testTree.root));
 
 
 // Confirm that the tree is balanced by calling isBalanced().
-console.log(testTree.isBalanced());
 
+console.log(testTree.isBalanced());
+console.log(testTree);
+console.log(prettyPrint(testTree.root));
 
 // Print out all elements in Level, Pre, Post, and In-Order.
 
@@ -88,6 +90,12 @@ console.log(testTree.rebalance());
 console.log(prettyPrint(testTree.rebalance()));
 
 
+// Confirm that the tree is balanced by calling isBalanced().
+
+
+console.log(testTree.isBalanced());
+
+
 // Print out all elements in Level, Pre, Post & In-Order
 
 
@@ -113,3 +121,7 @@ console.log(`In-Order Traversal: `)
 testTree.inOrderForEach((node) => {
     console.log(node.data);
 });
+
+
+/*-----------------------------------------------------------------------------------------------------------------------------*/
+

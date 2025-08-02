@@ -10,6 +10,13 @@ function getSuccessor(current) {
     return current;
 }
 
+function getHeight(node){
+    if (!node){
+        return -1
+    }
+    return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+}
+
 class Tree {
 
     constructor(array){
@@ -102,7 +109,7 @@ class Tree {
 
     }
 
-    // BFS
+    // BFS Traversal
     levelOrderForEach(callback, currentNode = this.root) {
         if (!callback){
             throw new Error("No Callback Input!")    
@@ -126,7 +133,7 @@ class Tree {
         }
   }
 
-    // DFS (left -> root -> right)
+    // DFS Traversal (left -> root -> right)
     inOrderForEach(callback, currentNode = this.root){
 
         if (!callback){
@@ -146,7 +153,7 @@ class Tree {
         return;
     }
 
-    // DFS (root -> left -> right)
+    // DFS Traversal (root -> left -> right)
     preOrderForEach(callback, currentNode = this.root){
 
         if (!callback){
@@ -166,7 +173,7 @@ class Tree {
         return;
     }
 
-    // DFS (left -> right -> root)
+    // DFS Traversal (left -> right -> root)
     postOrderForEach(callback, currentNode = this.root){
         
         if (!callback){
@@ -186,15 +193,21 @@ class Tree {
         return;
     }
 
-    height(value, currentNode = this.find(value)){
+    height(value){
 
-        if (!currentNode){
-            return null
+        function getHeight(node){
+            if (!node){
+                return -1
+            }
+            return 1 + Math.max(getHeight(node.left), getHeight(node.right));
         }
 
-        const maxHeight = Math.max(this.height(value, currentNode.left), this.height(value, currentNode.right));
-
-        return maxHeight;
+        const currentNode = this.find(value);
+        if (!currentNode){
+            return null
+        } else {
+            return getHeight(currentNode);
+        }
     }
 
     depth(value, currentNode = this.root, currentDepth = 0){
@@ -213,24 +226,24 @@ class Tree {
         
     }
 
-    isBalanced(currentNode = this.root){
-
-        if (!currentNode){
-            return true;
+    isBalanced(currentNode = this.root) {
+        
+        if (!currentNode) {
+            return true
         }
 
-        const leftNodeHeight = this.height(currentNode.left);
-        const rightNodeHeight = this.height(currentNode.right);
+        const rightNodeHeight = getHeight(currentNode.right);
+        const leftNodeHeight = getHeight(currentNode.left);
+        const heightDifference = Math.abs(rightNodeHeight - leftNodeHeight);
 
-        const heightDifference = Math.abs(leftNodeHeight - rightNodeHeight);
-
-        if (heightDifference > 1) {
+        if (heightDifference > 1){
             return false;
         }
 
-        return this.isBalanced(currentNode.left) && this.isBalanced(currentNode.right);
-    
+        return this.isBalanced(currentNode.right) && this.isBalanced(currentNode.left);
+
     }
+
 
     rebalance(){
 
